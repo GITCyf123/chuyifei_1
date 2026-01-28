@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9.5MeV控制系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <div class="header-left">
+                <h1>中国原子能科学研究院</h1>
+                <h2>{{ data.main_title }}</h2>
+            </div>
+            <div class="header-right">
+                <button class="nav-btn">连接PLC</button>
+                <button class="nav-btn">检测从机状态</button>
+                <button class="nav-btn">工程师界面</button>
+                <span class="time-display">{{ data.current_time }}</span>
+            </div>
+        </header>
+
+        <!-- 顶部数据显示 -->
+        <div class="top-data">
+            <div class="data-item">
+                <label>内靶:</label>
+                <span class="data-value">{{ data.instruments['内靶'] }}</span>
+                <span class="data-unit">uA</span>
+            </div>
+            <div class="data-item">
+                <label>剥离靶:</label>
+                <span class="data-value">{{ data.instruments['剥离靶'] }}</span>
+                <span class="data-unit">uA</span>
+            </div>
+            <div class="data-item">
+                <label>引出法拉第筒:</label>
+                <span class="data-value">{{ data.instruments['引出法拉第筒'] }}</span>
+                <span class="data-unit">uA</span>
+            </div>
+            <div class="data-item">
+                <label>光栅1:</label>
+                <span class="data-value">{{ data.instruments['光栅1'] }}</span>
+                <span class="data-unit">uA</span>
+            </div>
+        </div>
+
+        <!-- 主要内容区 -->
+        <div class="main-content">
+            <!-- 左侧控制区 -->
+            <div class="left-panel">
+                <!-- 高压电源控制 -->
+                <div class="control-panel">
+                    <h3>高压电源控制</h3>
+                    <div class="control-group">
+                        <label>电压设置:</label>
+                        <input type="text" value="{{ data.power_supply.voltage_set }}" class="control-input">
+                        <span class="unit">mA</span>
+                    </div>
+                    <div class="control-group">
+                        <label>电流反馈:</label>
+                        <input type="text" value="{{ data.power_supply.current_feedback }}" class="control-input" readonly>
+                        <span class="unit">mA</span>
+                    </div>
+                    <div class="control-group">
+                        <label>电压反馈:</label>
+                        <input type="text" value="{{ data.power_supply.voltage_feedback }}" class="control-input" readonly>
+                        <span class="unit">kV</span>
+                    </div>
+                    <div class="control-buttons">
+                        <button class="btn-plus">+</button>
+                        <button class="btn-minus">-</button>
+                        <button class="btn-control">开/关</button>
+                        <button class="btn-control">复位</button>
+                    </div>
+                </div>
+
+                <!-- 主磁铁电源控制 -->
+                <div class="control-panel">
+                    <h3>主磁铁电源控制</h3>
+                    <div class="control-group">
+                        <label>电流设置:</label>
+                        <input type="text" value="{{ data.magnet_power.current_set }}" class="control-input">
+                        <span class="unit">A</span>
+                    </div>
+                    <div class="control-group">
+                        <label>电流反馈:</label>
+                        <input type="text" value="{{ data.magnet_power.current_feedback }}" class="control-input" readonly>
+                        <span class="unit">A</span>
+                    </div>
+                    <div class="control-group">
+                        <label>电压反馈:</label>
+                        <input type="text" value="{{ data.magnet_power.voltage_feedback }}" class="control-input" readonly>
+                        <span class="unit">V</span>
+                    </div>
+                    <div class="control-buttons">
+                        <button class="btn-plus">+</button>
+                        <button class="btn-minus">-</button>
+                    </div>
+                </div>
+
+                <div class="panel-label">低电平</div>
+            </div>
+
+            <!-- 中间区域 -->
+            <div class="center-panel">
+                <!-- 靶状态 -->
+                <div class="target-status">
+                    <div class="target-item">
+                        <h4>内靶</h4>
+                        <div class="status-indicators">
+                            <div class="indicator normal">联结</div>
+                            <div class="indicator">状态</div>
+                        </div>
+                        <div class="control-buttons">
+                            <button class="btn-control">启动</button>
+                        </div>
+                    </div>
+                    <div class="target-item">
+                        <h4>剥离靶</h4>
+                        <div class="status-indicators">
+                            <div class="indicator">联结</div>
+                            <div class="indicator">状态</div>
+                        </div>
+                        <div class="control-buttons">
+                            <button class="btn-control btn-orange">关闭</button>
+                        </div>
+                        <div class="position-info">
+                            <p>电位器位置: {{ data.targets['剥离靶'].position }}</p>
+                            <p>电位器位置: {{ data.targets['剥离靶'].position }}.00</p>
+                        </div>
+                        <div class="position-controls">
+                            <button class="btn-position">点动前进</button>
+                            <button class="btn-position">点动后退</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 设备图片 -->
+                <div class="equipment-image">
+                    <!-- 这里可以放置设备图片，使用占位图 -->
+                    <div class="image-placeholder">设备图片</div>
+                    <img src="/jpg/9_5main.jpg" alt="9.5MeV设备图" class="equipment-img">
+                    
+                </div>
+
+                <div class="panel-label">吹扫</div>
+            </div>
+
+            <!-- 右侧状态区 -->
+            <div class="right-panel">
+                <!-- 水冷状态 -->
+                <div class="status-section water-cooling">
+                    <h4>水冷状态</h4>
+                    <div class="status-list">
+                        {% for cooling in data.water_cooling %}
+                        <div class="status-item">
+                            <span class="status-label">{{ cooling.label }}</span>
+                            <span class="status-dot normal"></span>
+                        </div>
+                        {% endfor %}
+                        <div class="status-item">
+                            <span class="status-label">原始开关</span>
+                            <span class="status-dot normal"></span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">内靶</span>
+                            <span class="status-dot normal"></span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">低电平</span>
+                            <span class="status-dot normal"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 真空状态 -->
+                <div class="status-section">
+                    <h4>真空</h4>
+                    <div class="vacuum-info">
+                        <div class="vacuum-item">
+                            <label>低真空(mBar):</label>
+                            <span class="vacuum-value">{{ data.vacuum.low_pressure.value }}</span>
+                            <span class="status-dot warning"></span>
+                        </div>
+                        <div class="vacuum-item">
+                            <label>高真空(mBar):</label>
+                            <span class="vacuum-value">{{ data.vacuum.high_pressure.value }}</span>
+                            <span class="status-dot warning"></span>
+                        </div>
+                        <div class="vacuum-item">
+                            <label>分子泵1:</label>
+                            <span class="vacuum-value">输出版率</span>
+                            <span class="status-dot normal"></span>
+                            <span class="frequency">{{ data.vacuum.molecular_pump1.frequency }}</span>
+                        </div>
+                        <div class="vacuum-item">
+                            <label>分子泵2:</label>
+                            <span class="vacuum-value">输出版率</span>
+                            <span class="status-dot normal"></span>
+                            <span class="frequency">{{ data.vacuum.molecular_pump2.frequency }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 离子源控制 -->
+                <div class="control-section">
+                    <h4>并馈源控制段</h4>
+                    {% for source in data.ion_sources %}
+                    <div class="ion-source-item">
+                        <label>{{ source.label }}:</label>
+                        <span class="source-current">{{ source.current }} uA</span>
+                        {% if source.status == 'on' %}
+                        <button class="btn-source on">开启</button>
+                        {% else %}
+                        <button class="btn-source off">关闭</button>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- 一键启动 -->
+                <div class="control-section">
+                    <h4>一键启动</h4>
+                    <div class="quick-controls">
+                        <button class="btn-quick">准备状态</button>
+                        <button class="btn-quick">真空启动</button>
+                        <button class="btn-quick">真空关闭</button>
+                        <button class="btn-quick">起辉阶段</button>
+                        <button class="btn-quick">束流大小: 10.0 uA</button>
+                        <button class="btn-quick btn-green">自动调节</button>
+                        <button class="btn-quick btn-red">停止出束</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部控制按钮 -->
+        <div class="bottom-controls">
+            <button class="control-btn">监视</button>
+            <button class="control-btn">调试</button>
+            <button class="control-btn">诊断+</button>
+            <button class="control-btn">温控</button>
+            <button class="control-btn">手动</button>
+            <button class="control-btn">参数</button>
+        </div>
+    </div>
+
+    <script>
+        // 更新数值的通用函数
+        function updateValue(valueType, operation, step = 0.1, elementSelector) {
+            $.ajax({
+                url: '/api/update_value',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    type: valueType,
+                    operation: operation,
+                    step: step
+                }),
+                success: function(response) {
+                    if (response.success) {
+                        if (elementSelector) {
+                            $(elementSelector).val(response.value.toFixed(2));
+                            // 同时更新反馈值
+                            if (valueType === 'power_voltage') {
+                                $('input[value="{{ data.power_supply.voltage_feedback }}"]').val(response.value.toFixed(2));
+                            } else if (valueType === 'power_current') {
+                                $('input[value="{{ data.power_supply.current_feedback }}"]').val(response.value.toFixed(2));
+                            } else if (valueType === 'magnet_current') {
+                                $('input[value="{{ data.magnet_power.current_feedback }}"]').val(response.value.toFixed(2));
+                                $('input[value="{{ data.magnet_power.voltage_feedback }}"]').val((response.value * 10).toFixed(3));
+                            }
+                        }
+                    } else {
+                        console.error('更新失败:', response.error);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('请求错误:', error);
+                }
+            });
+        }
+
+        // 靶位移动函数
+        function moveTarget(target, direction) {
+            $.ajax({
+                url: '/api/target_position',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    target: target,
+                    direction: direction
+                }),
+                success: function(response) {
+                    if (response.success) {
+                        // 更新显示的位置
+                        const positionElements = $(`.position-info p`);
+                        positionElements.each(function() {
+                            if ($(this).text().includes('电位器位置:')) {
+                                $(this).text(`电位器位置: ${response.position}`);
+                                $(positionElements[1]).text(`电位器位置: ${response.position}.00`);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        // 切换离子源状态
+        function toggleIonSource(source) {
+            $.ajax({
+                url: '/api/toggle_ion_source',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ source: source }),
+                success: function(response) {
+                    if (response.success) {
+                        // 更新按钮状态
+                        const button = $(`.ion-source-item:contains('${source}') .btn-source`);
+                        if (response.status === 'on') {
+                            button.text('开启').removeClass('off').addClass('on');
+                        } else {
+                            button.text('关闭').removeClass('on').addClass('off');
+                        }
+                    }
+                }
+            });
+        }
+
+        // 一键操作函数
+        function performQuickAction(action) {
+            $.ajax({
+                url: '/api/quick_action',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ action: action }),
+                success: function(response) {
+                    if (response.success) {
+                        console.log('操作成功:', response.message);
+                        // 可以在这里添加操作成功的提示
+                        alert(response.message);
+                    }
+                }
+            });
+        }
+
+        // 自动更新仪表数据
+        function updateInstrumentsData() {
+            $.ajax({
+                url: '/api/update_instruments',
+                type: 'GET',
+                success: function(response) {
+                    if (response.success) {
+                        // 更新仪表显示
+                        $.each(response.instruments, function(name, value) {
+                            $(`.data-item:contains('${name}') .data-value`).text(value.toFixed(2));
+                        });
+                    }
+                }
+            });
+        }
+
+        // 初始化事件监听
+        $(document).ready(function() {
+            // 高压电源控制按钮
+            $('.control-panel:eq(0) .btn-plus').click(function() {
+                updateValue('power_voltage', 'increase', 0.1, $('.control-panel:eq(0) .control-input:eq(0)'));
+            });
+            
+            $('.control-panel:eq(0) .btn-minus').click(function() {
+                updateValue('power_voltage', 'decrease', 0.1, $('.control-panel:eq(0) .control-input:eq(0)'));
+            });
+
+            // 主磁铁电源控制按钮
+            $('.control-panel:eq(1) .btn-plus').click(function() {
+                updateValue('magnet_current', 'increase', 0.1, $('.control-panel:eq(1) .control-input:eq(0)'));
+            });
+            
+            $('.control-panel:eq(1) .btn-minus').click(function() {
+                updateValue('magnet_current', 'decrease', 0.1, $('.control-panel:eq(1) .control-input:eq(0)'));
+            });
+
+            // 靶位移动按钮
+            $('.btn-position:eq(0)').click(function() {
+                moveTarget('剥离靶', 'forward');
+            });
+            
+            $('.btn-position:eq(1)').click(function() {
+                moveTarget('剥离靶', 'backward');
+            });
+
+            // 离子源开关按钮
+            $('.btn-source').click(function() {
+                const sourceText = $(this).closest('.ion-source-item').find('label').text();
+                const source = sourceText.replace(':', '');
+                toggleIonSource(source);
+            });
+
+            // 一键操作按钮
+            $('.btn-quick').click(function() {
+                const action = $(this).text();
+                performQuickAction(action);
+            });
+
+            // 定时更新仪表数据（每5秒）
+            setInterval(updateInstrumentsData, 5000);
+            
+            // 初始更新一次
+            updateInstrumentsData();
+        });
+    </script>
+</body>
+</html>

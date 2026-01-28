@@ -1,0 +1,559 @@
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f0f5f9;
+    color: #333;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+/* 顶部导航栏 */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #00a8c6;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px 5px 0 0;
+}
+
+/* PLC状态指示器 */
+.plc-status {
+    display: flex;
+    align-items: center;
+    margin-right: 10px; /* 与header-right中的gap保持一致 */
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.plc-connected {
+    background-color: #4CAF50;
+}
+
+.plc-disconnected {
+    background-color: #F44336;
+}
+
+.header-left h1 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.header-left h2 {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-btn {
+    background-color: #008c9e;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.nav-btn:hover {
+    background-color: #007d8c;
+}
+
+.time-display {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* 顶部数据显示 */
+.top-data {
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.data-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.data-item label {
+    font-weight: bold;
+    color: #333;
+}
+
+.data-value {
+    font-size: 18px;
+    font-weight: bold;
+    color: #00a8c6;
+}
+
+.data-unit {
+    font-size: 14px;
+    color: #666;
+}
+
+/* 主要内容区 */
+.main-content {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+/* 面板通用样式 */
+/* .left-panel, .center-panel, .right-panel {
+    background-color: white;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+} */
+
+.left-panel {
+    flex: 1;
+}
+
+.center-panel {
+    flex: 1.5;
+}
+
+.right-panel {
+    flex: 1;
+}
+
+
+.panel-label {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #000000;
+}
+
+/* 左侧面板 */
+.left-panel {
+    width: 20%;
+    float: left;
+    padding: 15px;
+}
+/* 左侧面板 */
+.left-panel {
+    width: 30%;
+    float: left;
+    padding: 15px;
+}
+
+/* 高压电源控制 */
+.control-panel_voltage {
+    margin-bottom: 35px;
+    padding: 15px;
+    background-color: #9be0ec;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.control-panel_voltage h3 {
+    color: black;
+    margin-bottom: 15px;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* 主磁铁电源控制 */
+.control-panel_Main_Magnet {
+    margin-bottom: 35px;
+    padding: 15px;
+    background-color: #9be0ec;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.control-panel_Main_Magnet h3 {
+    color: black;
+    margin-bottom: 15px;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* 低电平控制 */
+.control-panel_low_level {
+    margin-bottom: 35px;
+    padding: 15px;
+    background-color: #9be0ec;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.control-panel_low_level h3 {
+    color: black;
+    margin-bottom: 15px;
+    font-size: 16px;
+    text-align: center;
+}
+
+
+.control-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.control-group label {
+    width: 80px;
+    font-size: 14px;
+}
+
+.control-input {
+    width: 100px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    text-align: right;
+}
+
+.unit {
+    font-size: 12px;
+    color: #666;
+}
+
+/* 控制按钮 */
+.control-buttons, .position-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-plus, .btn-minus {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-plus {
+    background-color: #28a745;
+}
+
+.btn-minus {
+    background-color: #dc3545;
+}
+
+.btn-control {
+    padding: 5px 15px;
+    border: none;
+    border-radius: 3px;
+    background-color: #00a8c6;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-control:hover {
+    background-color: #008c9e;
+}
+
+.btn-orange {
+    background-color: #fd7e14;
+}
+
+.btn-orange:hover {
+    background-color: #e06a00;
+}
+
+/* 靶状态 */
+.target-status {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.target-item {
+    flex: 1;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+}
+
+.target-item h4 {
+    color: #00a8c6;
+    margin-bottom: 10px;
+}
+
+.status-indicators {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.indicator {
+    padding: 3px 10px;
+    background-color: #e9ecef;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.indicator.normal {
+    background-color: #28a745;
+    color: white;
+}
+
+.position-info {
+    margin-bottom: 10px;
+    font-size: 14px;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 3px;
+    background-color: #9ef2f5;
+    color: black;
+    display: inline-block;
+}
+
+.position-info p {
+    margin: 3px 0;
+}
+
+.equipment-image {
+    width: 30%;
+    aspect-ratio: 0.81; /* 按照图片宽高比0.81设置 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #9ef2f5;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 10px; /* 添加内边距使背景比图片稍大 */
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.image-placeholder {
+    font-size: 18px;
+    color: #666;
+    font-style: italic;
+}
+
+.equipment-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* 保持图片比例，完整显示在容器内 */
+}
+
+/* 状态区域 */
+.status-section, .control-section {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.status-section h4, .control-section h4 {
+    color: #00a8c6;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.status-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.status-section.water-cooling .status-item {
+    height: 35px; /* 增加每个状态项的高度 */
+    padding: 0 10px;
+    border-radius: 3px;
+    background-color: #f8f9fa;
+    border-left: 3px solid #00a8c6; /* 添加左侧边框，增强视觉效果 */
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status-label {
+    font-size: 14px;
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.status-dot.normal {
+    background-color: #28a745;
+}
+
+.status-dot.warning {
+    background-color: #dc3545;
+}
+
+/* 真空信息 */
+.vacuum-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.vacuum-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.vacuum-item label {
+    width: 100px;
+}
+
+.vacuum-value {
+    font-weight: bold;
+}
+
+.frequency {
+    margin-left: auto;
+    font-size: 14px;
+}
+
+/* 离子源控制 */
+.ion-source-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.source-current {
+    font-weight: bold;
+    margin-left: auto;
+}
+
+.btn-source {
+    padding: 3px 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.btn-source.on {
+    background-color: #00a8c6;
+    color: white;
+}
+
+.btn-source.off {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* 一键启动 */
+.quick-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.btn-quick {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 3px;
+    background-color: #00a8c6;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: left;
+}
+
+.btn-quick:hover {
+    background-color: #008c9e;
+}
+
+.btn-green {
+    background-color: #28a745;
+}
+
+.btn-green:hover {
+    background-color: #218838;
+}
+
+.btn-red {
+    background-color: #dc3545;
+}
+
+.btn-red:hover {
+    background-color: #c82333;
+}
+
+/* 底部控制按钮 */
+.bottom-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.control-btn {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 3px;
+    background-color: #00a8c6;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.control-btn:hover {
+    background-color: #008c9e;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    .main-content {
+        flex-direction: column;
+    }
+    
+    .top-data {
+        flex-wrap: wrap;
+    }
+    
+    .data-item {
+        min-width: 200px;
+        margin-bottom: 10px;
+    }
+}

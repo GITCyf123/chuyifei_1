@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/deep/deepke/example/llm/OneKE" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/deep/deepke/example/ner/standard/chinese-roberta-wwm-ext" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lab/CTABGNN" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/语音和语言综合实践/speech/对话/chatbot" vcs="Git" />
+  </component>
+</project>

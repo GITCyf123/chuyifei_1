@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/game.log" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/lab/STSGCN-master/data/文件夹说明.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/lab/week10/STGNN-main/data/文件夹说明.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/tianmao/工作簿1.csv" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/实训/data/test_node2node.json" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/实训/data/train_node2node.json" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/实训/output.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/实训/people_event_lead.json" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/实训/people_event_participate.json" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/实训/people_event_relate.json" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/实训/people_people_daughter.json" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/实训/train.json" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/语音和语言综合实践/speech/问答/QA_base/output.txt" charset="GBK" />
+  </component>
+</project>
